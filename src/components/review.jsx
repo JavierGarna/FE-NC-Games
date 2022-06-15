@@ -12,6 +12,10 @@ const Review = () => {
         });
     }, [review_id]);
 
+    if (typeof review === 'string') {
+        return <p className="error">Oops, something went wrong.</p>
+    }
+
     return (
         <main>
             <article className="single-review">

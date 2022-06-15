@@ -26,6 +26,9 @@ export const getReviewById = (review_id) => {
         return res.json()
     })
     .then((res) => {
+        if (!res.review) {
+            return res.msg
+        }
         return res.review;
-    });
+    })
 };

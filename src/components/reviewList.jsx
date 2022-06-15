@@ -13,14 +13,15 @@ const ReviewList = () => {
         })
     }, [category]);
 
-
     return (
         <main>
             <ul className="review-list">
                 {reviews.map((review) => (
                     <li className="review-card" key={review.review_id}>
-                        <Link to={`/reviews/${review.review_id}`} key={review.review_id} className='title'>{review.title}</Link>
-                        <img className="img" src={review.review_img_url} alt={review.title}/>
+                        <div>
+                            <Link to={`/reviews/${review.review_id}`} key={review.review_id} className='title'>{review.title}</Link>
+                            <img className="img" src={review.review_img_url} alt={review.title}/>
+                        </div>
                     </li>
                 ))}
             </ul>
