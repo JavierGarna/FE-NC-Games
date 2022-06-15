@@ -19,3 +19,16 @@ export const getCategories = () => {
         return res.categories;
     });
 };
+
+export const getReviewById = (review_id) => {
+    return fetch(`https://ncgames-javiergarcia.herokuapp.com/api/reviews/${review_id}`)
+    .then((res) => {
+        return res.json()
+    })
+    .then((res) => {
+        if (!res.review) {
+            return res.msg
+        }
+        return res.review;
+    })
+};
