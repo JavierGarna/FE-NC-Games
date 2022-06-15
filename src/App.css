@@ -3,17 +3,25 @@
 body {
   text-align: left;
   font-family: 'Jaldi', sans-serif;
-  background-color: hsl(0, 1%, 25%);
+  background-color: hsl(0, 0%, 19%);
   color: white;
 }
 
-header {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 0.5rem;
+.header {
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
   background-color: hsl(238, 74%, 42%);
+}
+
+.head {
+  text-decoration: none;
+  color: white;
+}
+
+.head:hover h1 {
+  color: black;
 }
 
 .review-list {
@@ -23,20 +31,40 @@ header {
   flex-wrap: wrap;
   justify-content: space-evenly;
   grid-area: main;
-  background-color: #797979;
+  background-color: #474747;
+}
+
+.single-review {
+  margin: 1rem;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  background-color: #474747;
+}
+
+.wrapper {
+  margin: 1rem;
+  width: 50%;
 }
 
 .review-card {
-  max-width: 10rem;
-  padding: 1rem;
-  margin: 1rem;
+  width: 10rem;
+  height: 8rem;
+  margin: 2rem;
+  display: flex;
+  flex-wrap: wrap;
   text-align: center;
   list-style: none;
-  background-color: hsl(0, 0%, 71%);
+  background-color: hsl(0, 0%, 35%);
+}
+
+.title {
+  color: white;
 }
 
 img {
   max-width: 100%;
+  max-height: 100%;
 }
 
 .nav {
@@ -45,7 +73,20 @@ img {
 
 .categories {
   margin: 3px;
+  font-size: small;
   color: hsl(0, 0%, 71%);
   text-transform: uppercase;
   text-decoration: none;
+}
+
+.categories:hover {
+  color: white;
+}
+
+.review-img {
+  width: 100%;
+}
+
+.review-title {
+  text-align: center;
 }

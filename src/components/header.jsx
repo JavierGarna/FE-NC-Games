@@ -1,10 +1,13 @@
 import Nav from "./nav";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return <header className="header">
-        <h1>
-            GAME REVIEW
-        </h1>
+        <Link to={`/`} className='head'>
+            <h1>
+                GAME REVIEW
+            </h1>
+        </Link>
         <Nav/>
     </header>
 };
