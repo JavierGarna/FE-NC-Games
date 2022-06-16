@@ -2,7 +2,7 @@ import './App.css';
 import Header from './components/header'
 import ReviewList from './components/reviewList';
 import { Routes, Route } from 'react-router-dom';
-import Review from './components/review';
+import SingleReview from './components/singleReview';
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<ReviewList/>}/>
         <Route path='/:category' element={<ReviewList/>}/>
-        <Route path='/reviews/:review_id' element={<Review/>}/>
+        <Route path='/reviews/:review_id' element={<SingleReview/>}/>
       </Routes>
     </div>
   );
