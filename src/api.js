@@ -49,5 +49,5 @@ export const patchVotes = (likes, review_id) => {
             return res;
         }
         return res.review;
-    })
+    });
 };
