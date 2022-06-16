@@ -46,7 +46,7 @@ export const patchVotes = (likes, review_id) => {
     })
     .then((res) => {
         if (!res.review) {
-            return res.msg;
+            return res;
         }
         return res.review;
     })

@@ -13,16 +13,28 @@ const SingleReview = () => {
         if (downvoteClicked) {
             setDownvoteClicked(false)
             setUserVote((prevVote) => prevVote + 1);
-            patchVotes(1, review_id)
+            patchVotes(1, review_id).then((res) => {
+                if(res.msg) {
+                    alert("Oops, something went wrong.")
+                }
+            })
         }
         if (upvoteClicked) {
             setUpvoteClicked(false)
             setUserVote((prevVote) => prevVote - 1);
-            patchVotes(-1, review_id)
+            patchVotes(-1, review_id).then((res) => {
+                if(res.msg) {
+                    alert("Oops, something went wrong.")
+                }
+            })
         } else {
             setUpvoteClicked(true)
             setUserVote((prevVote) => prevVote + 1);
-            patchVotes(1, review_id)
+            patchVotes(1, review_id).then((res) => {
+                if(res.msg) {
+                    alert("Oops, something went wrong.")
+                }
+            })
         }
     };
 
@@ -30,16 +42,28 @@ const SingleReview = () => {
         if (upvoteClicked) {
             setUpvoteClicked(false)
             setUserVote((prevVote) => prevVote - 1);
-            patchVotes(-1, review_id)
+            patchVotes(-1, review_id).then((res) => {
+                if(res.msg) {
+                    alert("Oops, something went wrong.")
+                }
+            })
         }
         if (downvoteClicked) {
             setDownvoteClicked(false)
             setUserVote((prevVote) => prevVote + 1);
-            patchVotes(1, review_id)
+            patchVotes(1, review_id).then((res) => {
+                if(res.msg) {
+                    alert("Oops, something went wrong.")
+                }
+            })
         } else {
             setDownvoteClicked(true)
             setUserVote((prevVote) => prevVote - 1);
-            patchVotes(-1, review_id)
+            patchVotes(-1, review_id).then((res) => {
+                if(res.msg) {
+                    alert("Oops, something went wrong.")
+                }
+            })
         }
     };
 
@@ -48,10 +72,6 @@ const SingleReview = () => {
             setReview(fetchReview)
         });
     }, [review_id]);
-
-    if (typeof review === 'string') {
-        return <p className="error">Oops, something went wrong.</p>
-    };
 
     return (
         <main>
