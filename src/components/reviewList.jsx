@@ -1,7 +1,7 @@
-import { useEffect, useState, React } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReviews } from "../api";
-import ReviewCard from "./reviewCard";
+import { Link } from 'react-router-dom';
 
 const ReviewList = () => {
     const { category } = useParams()
@@ -15,15 +15,16 @@ const ReviewList = () => {
 
     return (
         <main>
-            <section className="review-list">
-                {reviews.map((review) => {
-                    return (
-                        <article className="review-list-article" key={review.review_id}>
-                            <ReviewCard review_id={review.review_id} review={review}/>
-                        </article>
-                    )
-                })}
-            </section>
+            <ul className="review-list">
+                {reviews.map((review) => (
+                    <li className="review-card" key={review.review_id}>
+                        <div>
+                            <Link to={`/reviews/${review.review_id}`} key={review.review_id} className='title'>{review.title}</Link>
+                            <img className="img" src={review.review_img_url} alt={review.title}/>
+                        </div>
+                    </li>
+                ))}
+            </ul>
         </main>
     )
 };
