@@ -33,9 +33,7 @@ export const getReviewById = (review_id) => {
     })
 };
 
-export const addVotes = (likes, review_id) => {
-    console.log(likes)
-    console.log(review_id)
+export const patchVotes = (likes, review_id) => {
     return fetch(`https://ncgames-javiergarcia.herokuapp.com/api/reviews/${review_id}`, {
         method: 'PATCH',
         body: JSON.stringify({ inc_votes: likes}),
@@ -47,6 +45,9 @@ export const addVotes = (likes, review_id) => {
         return res.json()
     })
     .then((res) => {
+        if (!res.review) {
+            return res.msg;
+        }
         return res.review;
     })
 };

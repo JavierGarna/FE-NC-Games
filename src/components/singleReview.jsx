@@ -1,20 +1,46 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getReviewById, addVotes } from "../api";
+import { getReviewById, patchVotes } from "../api";
 
 const SingleReview = () => {
     const { review_id } = useParams()
     const [review, setReview] = useState([]);
     const [userVote, setUserVote] = useState(0);
+    const [upvoteClicked, setUpvoteClicked] = useState(false);
+    const [downvoteClicked, setDownvoteClicked] = useState(false);    
 
     const handleUpvote = () => {
-        setUserVote((prevVote) => prevVote + 1);
-        addVotes(1, review_id)
+        if (downvoteClicked) {
+            setDownvoteClicked(false)
+            setUserVote((prevVote) => prevVote + 1);
+            patchVotes(1, review_id)
+        }
+        if (upvoteClicked) {
+            setUpvoteClicked(false)
+            setUserVote((prevVote) => prevVote - 1);
+            patchVotes(-1, review_id)
+        } else {
+            setUpvoteClicked(true)
+            setUserVote((prevVote) => prevVote + 1);
+            patchVotes(1, review_id)
+        }
     };
 
     const handleDownvote = () => {
-        setUserVote((prevVote) => prevVote - 1);
-        addVotes(-1, review_id)
+        if (upvoteClicked) {
+            setUpvoteClicked(false)
+            setUserVote((prevVote) => prevVote - 1);
+            patchVotes(-1, review_id)
+        }
+        if (downvoteClicked) {
+            setDownvoteClicked(false)
+            setUserVote((prevVote) => prevVote + 1);
+            patchVotes(1, review_id)
+        } else {
+            setDownvoteClicked(true)
+            setUserVote((prevVote) => prevVote - 1);
+            patchVotes(-1, review_id)
+        }
     };
 
     useEffect(() => {
@@ -25,7 +51,7 @@ const SingleReview = () => {
 
     if (typeof review === 'string') {
         return <p className="error">Oops, something went wrong.</p>
-    }
+    };
 
     return (
         <main>
@@ -45,9 +71,9 @@ const SingleReview = () => {
                 <div className="wrapper-bottom-review">
                     <p>💬 {review.comment_count} comments</p>
                     <div className="wrapper-votes-review">
-                        <button onClick={handleUpvote}>👍</button>
+                        <button aria-pressed={upvoteClicked} className="upvote" onClick={handleUpvote} >👍</button>
                         {userVote + review.votes}
-                        <button onClick={handleDownvote}>👎</button>
+                        <button aria-pressed={downvoteClicked}  className="downvote" onClick={handleDownvote}>👎</button>
                     </div>
                 </div>
             </article>
