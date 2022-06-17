@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { getReviewById, patchVotes } from "../api";
+import { getComments, getReviewById, patchVotes, postComment } from "../api";
+import CommentCard from "./commentCard.jsx";
+import userContext from "../contexts/userContext";
 
 const SingleReview = () => {
     const { review_id } = useParams()
     const [review, setReview] = useState([]);
     const [userVote, setUserVote] = useState(0);
     const [upvoteClicked, setUpvoteClicked] = useState(false);
-    const [downvoteClicked, setDownvoteClicked] = useState(false);    
+    const [downvoteClicked, setDownvoteClicked] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [commentsClicked, setCommentsClicked] = useState(false);
+    const [commentInput, setCommentInput] = useState("");
+    const { loggedUser } = useContext(userContext);
 
     const handleUpvote = () => {
         if (downvoteClicked) {
@@ -67,6 +73,23 @@ const SingleReview = () => {
         }
     };
 
+    const handleComments = () => {
+        if (!commentsClicked) {
+            setCommentsClicked(true)
+            getComments(review_id).then((res) => {
+                setComments(res)
+            })
+        } else {
+            setCommentsClicked(false)
+            setComments([])
+        };
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        postComment(review_id, commentInput, loggedUser)
+    };
+
     useEffect(() => {
         getReviewById(review_id).then((fetchReview) => {
             setReview(fetchReview)
@@ -89,12 +112,26 @@ const SingleReview = () => {
                     <p className="single-review-body">{review.review_body}</p>
                 </div>
                 <div className="wrapper-bottom-review">
-                    <p>💬 {review.comment_count} comments</p>
                     <div className="wrapper-votes-review">
                         <button aria-pressed={upvoteClicked} className="upvote" onClick={handleUpvote} >👍</button>
                         {userVote + review.votes}
                         <button aria-pressed={downvoteClicked}  className="downvote" onClick={handleDownvote}>👎</button>
                     </div>
+                    <button aria-pressed={commentsClicked} className="comments-button" onClick={handleComments}>💬 {review.comment_count} comments</button>
+                    <section className="comment-list">
+                        <article>
+                            <form className="comment-form" onSubmit={handleSubmit}>
+                                <label>What are your thoughts?</label><input type="text" name="comment-input" id="comment-input" value={commentInput} onChange={(event) => {setCommentInput(event.target.value)}}></input><button type="submit" id="comment-button">Comment</button>
+                            </form>
+                        </article>
+                        {comments.map((comment) => {
+                            return (
+                                <article className="comment-list-article" key={comment.comment_id}>
+                                    <CommentCard comment_id={comment.comment_id} comment={comment}/>
+                                </article>
+                            )
+                        })}
+                    </section>
                 </div>
             </article>
         </main>
