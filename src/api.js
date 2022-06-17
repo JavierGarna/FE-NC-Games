@@ -74,10 +74,12 @@ export const postComment = (review_id, body, username) => {
         return res.json()
     })
     .then((res) => {
-        if (!res.review) {
+        console.log(res)
+        if (!res.comment) {
             alert('You need to log in!')
+        } else {
+            return res.comment;
         }
-        return res.review;
     })
 };
 
