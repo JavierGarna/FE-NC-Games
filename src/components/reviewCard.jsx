@@ -2,7 +2,7 @@ import { useState } from "react";
 import { patchVotes } from "../api";
 import { Link } from 'react-router-dom';
 
-const ReviewCard = ({ review, review_id}) => {
+const ReviewCard = ({ review, review_id }) => {
     const [userVote, setUserVote] = useState(0);
     const [upvoteClicked, setUpvoteClicked] = useState(false);
     const [downvoteClicked, setDownvoteClicked] = useState(false);
