@@ -10,7 +10,7 @@ const Header = () => {
         </Link>
         <Nav/>
         <Link to={`/users`} className="users-link">
-            <button>Sign In</button>
+            <button>Sign Up</button>
         </Link>
     </header>
 };
