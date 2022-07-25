@@ -1,8 +1,15 @@
-export const getReviews = (category, sortBy) => {
+export const getReviews = (category, sortBy, order) => {
     let url = 'https://ncgames-javiergarcia.herokuapp.com/api/reviews';
-    if (category) { url += `?category=${category}`};
-    if (sortBy && !category) { url += `?sort_by=${sortBy}`};
-    if (sortBy && category) { url += `&sort_by=${sortBy}`};
+    let symbol = '?'
+    if (category) {
+        url += `?category=${category}` 
+        symbol='&'
+    };
+    if (sortBy) {
+        url += `${symbol}sort_by=${sortBy}`
+        symbol='&'
+    };
+    url += `${symbol}order=${order}`
 
     return fetch(url)
     .then((res) => {

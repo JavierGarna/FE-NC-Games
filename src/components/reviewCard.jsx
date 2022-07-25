@@ -54,6 +54,7 @@ const ReviewCard = ({ review, review_id }) => {
             </div>
             <Link to={`/reviews/${review.review_id}`} key={review.review_id} className="wrapper-review-card">
                 <p className="review-card-title">{review.title}</p>
+                <p className="review-card-title">{review.created_at}</p>
                 <img className="review-card-img" src={review.review_img_url} alt={review.title}/>
             </Link>
         </li>

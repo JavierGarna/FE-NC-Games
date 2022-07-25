@@ -6,15 +6,20 @@ import ReviewCard from "./reviewCard";
 const ReviewList = () => {
     const { category } = useParams()
     const [reviews, setReviews] = useState([]);
-    const [sortBy] = useState(['created_at', 'comment_count', 'votes']);
-    const [currSearch, setCurrSearch] = useState()
+    const [sortBy] = useState(['created_at', 'votes']);
+    const [currSearch, setCurrSearch] = useState();
+    const [order, setOrder] = useState('asc');
     const [searchParams, setSearchParams] = useSearchParams();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getReviews(category, currSearch).then((fetchReviews) => {
+        getReviews(category, currSearch, order).then((fetchReviews) => {
             setReviews(fetchReviews)
+            setLoading(false);
         })
-    }, [category, currSearch]);
+    }, [category, order]);
+
+    if (loading) return <p>Loading...</p>
 
     return (
         <main>
@@ -23,7 +28,8 @@ const ReviewList = () => {
                 return (
                     <button key={data} value={searchParams} onClick={() => {
                         setCurrSearch(data)
-                        setSearchParams(data, { replace: true})
+                        setSearchParams({sortBy: data, order: order}, {replace: true})
+                        if (order === 'asc') {setOrder('desc')} else {setOrder('asc')}
                     }}>{data}</button>
                 )
             })}
