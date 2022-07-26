@@ -11,7 +11,6 @@ const SingleReview = () => {
     const [upvoteClicked, setUpvoteClicked] = useState(false);
     const [downvoteClicked, setDownvoteClicked] = useState(false);
     const [comments, setComments] = useState([]);
-    const [commentsClicked, setCommentsClicked] = useState(false);
     const [commentInput, setCommentInput] = useState("");
     const { loggedUser } = useContext(userContext);
 
@@ -73,26 +72,17 @@ const SingleReview = () => {
         }
     };
 
-    const handleComments = () => {
-        if (!commentsClicked) {
-            setCommentsClicked(true)
-            getComments(review_id).then((res) => {
-                setComments(res)
-            })
-        } else {
-            setCommentsClicked(false)
-            setComments([])
-        };
-    };
-
     const handleSubmit = (event) => {
         event.preventDefault()
-        postComment(review_id, commentInput, loggedUser)
+        postComment(review_id, commentInput, loggedUser.username)
     };
 
     useEffect(() => {
         getReviewById(review_id).then((fetchReview) => {
             setReview(fetchReview)
+        });
+        getComments(review_id).then((res) => {
+            setComments(res)
         });
     }, [review_id]);
 
@@ -117,7 +107,6 @@ const SingleReview = () => {
                         {userVote + review.votes}
                         <button aria-pressed={downvoteClicked}  className="downvote" onClick={handleDownvote}>👎</button>
                     </div>
-                    <button aria-pressed={commentsClicked} className="comments-button" onClick={handleComments}>💬 {review.comment_count} comments</button>
                     <section className="comment-list">
                         <article>
                             <form className="comment-form" onSubmit={handleSubmit}>

@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { useState } from "react";
-import { patchVotes } from "../api";
+import { deleteComment, patchVotes } from "../api";
+import userContext from "../contexts/userContext";
 
 const CommentCard = ({ comment_id, comment }) => {
+    const {loggedUser} = useContext(userContext);
     const [userVote, setUserVote] = useState(0);
     const [upvoteClicked, setUpvoteClicked] = useState(false);
     const [downvoteClicked, setDownvoteClicked] = useState(false);
@@ -69,6 +72,11 @@ const CommentCard = ({ comment_id, comment }) => {
             <div className="comment-card-top">
                 <p className="comment-card-author">{comment.author}</p>
                 <p className="comment-card-created-at">{comment.created_at}</p>
+                {comment.author === loggedUser.username ? (
+                    <button onClick={() => {
+                        deleteComment(comment.comment_id).then((res) => {if(res === 'No Content') {alert('Your comment was deleted succesfully')}})
+                    }}>Delete</button>
+                ) : null}
             </div>
             <div>
                 <p className="comment-card-body">{comment.body}</p>

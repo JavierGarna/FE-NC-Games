@@ -21,16 +21,12 @@ div {
   display: flex;
   align-items: center;
   padding-left: 0.5rem;
-  background-color: hsl(238, 72%, 36%);
+  background-color: #1a1e9e;
 }
 
 .head {
   text-decoration: none;
   color: white;
-}
-
-.head:hover h1 {
-  color: black;
 }
 
 .nav {
@@ -39,7 +35,7 @@ div {
 
 .categories {
   margin: 3px;
-  font-size: small;
+  font-size: large;
   color: hsl(0, 0%, 71%);
   text-transform: uppercase;
   text-decoration: none;
@@ -47,6 +43,7 @@ div {
 
 .categories:hover {
   color: white;
+  font-weight: bold;
 }
 
 .review-list {
@@ -58,7 +55,6 @@ div {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  grid-area: main;
 }
 
 .review-card {
@@ -264,4 +260,45 @@ div {
   border-radius: 4px;
   grid-area: main;
   background-color: #474747;
+}
+
+.loggedUser-img {
+  margin-bottom: 4px;
+  border-radius: 100%;
+  width: 3rem;
+  height: 3rem;
+  align-self: center;
+}
+
+.loggedUser-info {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.user-card-img {
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+}
+
+.user-list {
+  margin: 1rem;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.user-info {
+  border-radius: 1rem;
+  background-color: #474747;
+}
+
+.user-info:hover {
+  border: 4px solid #0008ff;
+}
+
+.user-card-name {
+  color: aliceblue;
 }

@@ -84,7 +84,6 @@ export const postComment = (review_id, body, username) => {
         return res.json()
     })
     .then((res) => {
-        console.log(res)
         if (!res.comment) {
             alert('You need to log in!')
         } else {
@@ -103,3 +102,11 @@ export const getUsers = () => {
         return res.users;
     })
 };
+
+export const deleteComment = (comment_id) => {
+    let url = `https://ncgames-javiergarcia.herokuapp.com/api/comments/${comment_id}`;
+    return fetch(url, {method: 'DELETE'})
+    .then((res) => {
+        return res.statusText;
+    })
+}

@@ -5,10 +5,14 @@ import { Routes, Route } from 'react-router-dom';
 import SingleReview from './components/singleReview';
 import UserList from './components/userList';
 import userContext from './contexts/userContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [loggedUser, setLoggedUser] = useState("");
+  useEffect(() => {
+    const data = window.localStorage.getItem("loggedUser");
+    setLoggedUser(JSON.parse(data));
+  }, []);
 
   return (
     <userContext.Provider value={{loggedUser, setLoggedUser}}>
