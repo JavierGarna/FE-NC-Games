@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getComments, getReviewById, patchVotes, postComment } from "../api";
 import CommentCard from "./commentCard.jsx";
 import userContext from "../contexts/userContext";
+import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 
 const SingleReview = () => {
     const { review_id } = useParams()
@@ -89,30 +90,20 @@ const SingleReview = () => {
     return (
         <main>
             <article className="single-review">
-                <div className="wrapper-owner-review">
+                <div className="wrapper-votes-card">
+                    {upvoteClicked ? <AiFillLike aria-pressed={upvoteClicked} onClick={handleUpvote} /> 
+                        : <AiOutlineLike aria-pressed={upvoteClicked} onClick={handleUpvote}/>}
+                    {userVote + review.votes}
+                    {downvoteClicked ? <AiFillDislike aria-pressed={downvoteClicked} onClick={handleDownvote} /> 
+                        : <AiOutlineDislike aria-pressed={downvoteClicked} onClick={handleDownvote}/>}
+                </div>
+                <section className="single-review-info">
                     <p className="single-review-owner">Posted by {review.owner}</p>
-                </div>
-                <div className="wrapper-title-review">
                     <h3 className="single-review-title">{review.title}</h3>
-                </div>
-                <div className="wrapper-img-review">
                     <img className="single-review-img" src={review.review_img_url} alt={review.title}/>
-                </div>
-                <div className="wrapper-body-review">
                     <p className="single-review-body">{review.review_body}</p>
-                </div>
                 <div className="wrapper-bottom-review">
-                    <div className="wrapper-votes-review">
-                        <button aria-pressed={upvoteClicked} className="upvote" onClick={handleUpvote} >👍</button>
-                        {userVote + review.votes}
-                        <button aria-pressed={downvoteClicked}  className="downvote" onClick={handleDownvote}>👎</button>
-                    </div>
-                    <section className="comment-list">
-                        <article>
-                            <form className="comment-form" onSubmit={handleSubmit}>
-                                <label>What are your thoughts?</label><input type="text" name="comment-input" id="comment-input" value={commentInput} onChange={(event) => {setCommentInput(event.target.value)}}></input><button type="submit" id="comment-button">Comment</button>
-                            </form>
-                        </article>
+                    <section>
                         {comments.map((comment) => {
                             return (
                                 <article className="comment-list-article" key={comment.comment_id}>
@@ -120,8 +111,14 @@ const SingleReview = () => {
                                 </article>
                             )
                         })}
+                        <article>
+                            <form className="comment-form" onSubmit={handleSubmit}>
+                                <label>What are your thoughts?</label><input type="text" name="comment-input" id="comment-input" value={commentInput} onChange={(event) => {setCommentInput(event.target.value)}}></input><button type="submit" id="comment-button">Comment</button>
+                            </form>
+                        </article>
                     </section>
                 </div>
+                </section>
             </article>
         </main>
     )

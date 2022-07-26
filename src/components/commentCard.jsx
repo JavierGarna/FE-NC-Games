@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useState } from "react";
+import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { deleteComment, patchVotes } from "../api";
 import userContext from "../contexts/userContext";
 
@@ -69,6 +70,14 @@ const CommentCard = ({ comment_id, comment }) => {
 
     return (
         <article className="comment-card" key={comment.comment_id}>
+            <div className="wrapper-votes-card">
+            {upvoteClicked ? <AiFillLike aria-pressed={upvoteClicked} onClick={handleUpvote} /> 
+                    : <AiOutlineLike aria-pressed={upvoteClicked} onClick={handleUpvote}/>}
+                {userVote + comment.votes}
+                {downvoteClicked ? <AiFillDislike aria-pressed={downvoteClicked} onClick={handleDownvote} /> 
+                    : <AiOutlineDislike aria-pressed={downvoteClicked} onClick={handleDownvote}/>}
+            </div>
+            <section className="wrapper-comment-info">
             <div className="comment-card-top">
                 <p className="comment-card-author">{comment.author}</p>
                 <p className="comment-card-created-at">{comment.created_at}</p>
@@ -78,14 +87,8 @@ const CommentCard = ({ comment_id, comment }) => {
                     }}>Delete</button>
                 ) : null}
             </div>
-            <div>
                 <p className="comment-card-body">{comment.body}</p>
-            </div>
-            <div className="comment-card-bottom">
-                <button aria-pressed={upvoteClicked} className="upvote" onClick={handleUpvote}>👍</button>
-                {userVote + comment.votes}
-                <button aria-pressed={downvoteClicked}  className="downvote" onClick={handleDownvote}>👎</button>
-            </div>
+            </section>
         </article>
     )
 };

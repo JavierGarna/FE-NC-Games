@@ -6,7 +6,6 @@ const UserCard = ({ user }) => {
 
     const handleClick = () => {
         setLoggedUser(user);
-        alert(`Logged in as ${user.username}`);
         window.localStorage.setItem("loggedUser", JSON.stringify(user));
     };
 

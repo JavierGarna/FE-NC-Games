@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getUsers } from "../api";
+import userContext from "../contexts/userContext";
 import UserCard from "./userCard";
 
 const UserList = () => {

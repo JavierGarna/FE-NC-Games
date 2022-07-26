@@ -1,10 +1,33 @@
-import Nav from "./nav";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useContext } from "react";
 import userContext from "../contexts/userContext";
+import { useEffect } from "react";
+import { useState } from 'react';
+import { getCategories } from "../api";
+import { BeatLoader } from 'react-spinners';
 
 const Header = () => {
-    const { loggedUser, setLoggedUser } = useContext(userContext);
+    const location = useLocation();
+    const { loggedUser, setLoggedUser, headerLoading, pageLoading, setHeaderLoading} = useContext(userContext);
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        getCategories().then((cat) => {
+            setCategories(cat);
+            setHeaderLoading(false);
+        })
+    }, []);
+
+    if (location.pathname === '/') {
+        if(pageLoading || headerLoading) {
+            return (
+                <div className='loading-page'>
+                    <h1 className='loading-header'>GAME REVIEW</h1>
+                    <BeatLoader color="#1a1e9e" size={30}/>  
+                </div>
+            )
+        }
+    }
 
     return <header className="header">
         <Link to={`/`} className='head'>
@@ -12,10 +35,16 @@ const Header = () => {
                 GAME REVIEW
             </h1>
         </Link>
-        <Nav/>
+        <ul className="nav">
+            {categories.map((category) => {
+                return <Link to={`/${category.slug}`} key={category.slug} className='categories'>{category.slug}</Link>
+            })}
+        </ul>
         {loggedUser ? (
             <article className="loggedUser-info">
-                <img className="loggedUser-img" src={loggedUser.avatar_url} alt="user image"/>
+                <Link to={`/users`} className="users-link">
+                    <img className="loggedUser-img" src={loggedUser.avatar_url} alt="user image"/>
+                </Link>
                 <button onClick={() => {setLoggedUser("")}}>Log Out</button>
             </article>
         ) : (

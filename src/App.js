@@ -9,13 +9,15 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [loggedUser, setLoggedUser] = useState("");
+  const [pageLoading, setPageLoading] = useState(true);
+  const [headerLoading, setHeaderLoading] = useState(true);
   useEffect(() => {
     const data = window.localStorage.getItem("loggedUser");
     setLoggedUser(JSON.parse(data));
   }, []);
 
   return (
-    <userContext.Provider value={{loggedUser, setLoggedUser}}>
+    <userContext.Provider value={{loggedUser, setLoggedUser, pageLoading, setPageLoading, headerLoading, setHeaderLoading}}>
       <div className="App">
         <Header></Header>
         <Routes>

@@ -1,36 +1,38 @@
+import { useContext } from "react";
 import { useEffect, useState, React } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getReviews } from "../api";
+import userContext from "../contexts/userContext";
 import ReviewCard from "./reviewCard";
 
 const ReviewList = () => {
-    const { category } = useParams()
+    const { category } = useParams();
+    const {headerLoading, pageLoading, setPageLoading} = useContext(userContext);
     const [reviews, setReviews] = useState([]);
     const [sortBy] = useState(['created_at', 'votes']);
     const [currSearch, setCurrSearch] = useState();
     const [order, setOrder] = useState('asc');
     const [searchParams, setSearchParams] = useSearchParams();
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getReviews(category, currSearch, order).then((fetchReviews) => {
             setReviews(fetchReviews)
-            setLoading(false);
+            setPageLoading(false);
         })
     }, [category, order]);
 
-    if (loading) return <p>Loading...</p>
+    if(pageLoading || headerLoading) return null;
 
     return (
-        <main>
-            <article>
+        <main className="homepage">
+            <article className="search-buttons">
             {sortBy.map((data) => {
                 return (
-                    <button key={data} value={searchParams} onClick={() => {
+                    <button className="search-button" key={data} value={searchParams} onClick={() => {
                         setCurrSearch(data)
                         setSearchParams({sortBy: data, order: order}, {replace: true})
                         if (order === 'asc') {setOrder('desc')} else {setOrder('asc')}
-                    }}>{data}</button>
+                    }}>{data === 'created_at' ? 'Order by date' : `Order by ${data}`}</button>
                 )
             })}
             </article>
