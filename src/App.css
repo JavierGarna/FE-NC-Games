@@ -468,3 +468,13 @@ div {
 .user-card-name {
   color: aliceblue;
 }
+
+.error-box {
+  border: 2px solid gray;
+  border-radius: 4px;
+  margin: 8px;
+  text-align: center;
+  background-color: #9e251a;
+  font-weight: bold;
+  font-size: large;
+}

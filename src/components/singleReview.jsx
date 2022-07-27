@@ -14,6 +14,7 @@ const SingleReview = () => {
     const [comments, setComments] = useState([]);
     const [commentInput, setCommentInput] = useState("");
     const { loggedUser } = useContext(userContext);
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleUpvote = () => {
         if (downvoteClicked) {
@@ -21,7 +22,7 @@ const SingleReview = () => {
             setUserVote((prevVote) => prevVote + 1);
             patchVotes(1, review_id).then((res) => {
                 if(res.msg) {
-                    alert("Oops, something went wrong.")
+                    alert("Sorry, something went wrong.")
                 }
             })
         }
@@ -30,7 +31,7 @@ const SingleReview = () => {
             setUserVote((prevVote) => prevVote - 1);
             patchVotes(-1, review_id).then((res) => {
                 if(res.msg) {
-                    alert("Oops, something went wrong.")
+                    alert("Sorry, something went wrong.")
                 }
             })
         } else {
@@ -38,7 +39,7 @@ const SingleReview = () => {
             setUserVote((prevVote) => prevVote + 1);
             patchVotes(1, review_id).then((res) => {
                 if(res.msg) {
-                    alert("Oops, something went wrong.")
+                    alert("Sorry, something went wrong.")
                 }
             })
         }
@@ -50,7 +51,7 @@ const SingleReview = () => {
             setUserVote((prevVote) => prevVote - 1);
             patchVotes(-1, review_id).then((res) => {
                 if(res.msg) {
-                    alert("Oops, something went wrong.")
+                    alert("Sorry, something went wrong.")
                 }
             })
         }
@@ -59,7 +60,7 @@ const SingleReview = () => {
             setUserVote((prevVote) => prevVote + 1);
             patchVotes(1, review_id).then((res) => {
                 if(res.msg) {
-                    alert("Oops, something went wrong.")
+                    alert("Sorry, something went wrong.")
                 }
             })
         } else {
@@ -67,7 +68,7 @@ const SingleReview = () => {
             setUserVote((prevVote) => prevVote - 1);
             patchVotes(-1, review_id).then((res) => {
                 if(res.msg) {
-                    alert("Oops, something went wrong.")
+                    alert("Sorry, something went wrong.")
                 }
             })
         }
@@ -75,18 +76,33 @@ const SingleReview = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        postComment(review_id, commentInput, loggedUser.username)
-        alert("Your comment was posted succesfully")
+        postComment(review_id, commentInput, loggedUser.username).then((fetchComment) => {
+            if (fetchComment) {
+                alert("Your comment was posted succesfully");
+            }
+        })
     };
 
     useEffect(() => {
         getReviewById(review_id).then((fetchReview) => {
-            setReview(fetchReview)
-        });
-        getComments(review_id).then((res) => {
-            setComments(res)
+            if (typeof fetchReview === 'string') {
+                setErrorMsg(fetchReview);
+            } else {
+                setReview(fetchReview);
+                getComments(review_id).then((res) => {
+                    if (res !== undefined) {
+                        setComments(res)
+                    }
+                });
+            }
         });
     }, [review_id]);
+
+    if (errorMsg) return (
+        <section className="error-box">
+            <p>Sorry, something went wrong.</p>
+        </section>
+    )
 
     return (
         <main className="single-review-page">

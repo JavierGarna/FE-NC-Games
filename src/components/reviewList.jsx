@@ -13,15 +13,27 @@ const ReviewList = () => {
     const [currSearch, setCurrSearch] = useState();
     const [order, setOrder] = useState('asc');
     const [searchParams, setSearchParams] = useSearchParams();
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         getReviews(category, currSearch, order).then((fetchReviews) => {
-            setReviews(fetchReviews)
+            if (typeof fetchReviews === 'string') {
+                setErrorMsg(fetchReviews);
+            } else {
+                setReviews(fetchReviews);
+                setErrorMsg("");
+            }
             setPageLoading(false);
         })
     }, [category, order]);
 
     if(pageLoading || headerLoading) return null;
+
+    if(errorMsg) return (
+        <section className="error-box">
+            <p>Sorry, something went wrong.</p>
+        </section>
+    )
 
     return (
         <main className="homepage">

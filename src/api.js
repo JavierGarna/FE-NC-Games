@@ -16,6 +16,7 @@ export const getReviews = (category, sortBy, order) => {
         return res.json();
     })
     .then((res) => {
+        if (res.msg) {return res.msg}
         return res.reviews;
     });
 };
@@ -36,7 +37,7 @@ export const getReviewById = (review_id) => {
         return res.json()
     })
     .then((res) => {
-        if (!res.review) {
+        if (res.msg) {
             return res.msg
         }
         return res.review;
