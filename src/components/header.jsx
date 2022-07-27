@@ -46,7 +46,9 @@ const Header = () => {
                 <Link to={`/users`} className="users-link">
                     <img className="loggedUser-img" src={loggedUser.avatar_url} alt="user"/>
                 </Link>
-                <button className='logout-button' onClick={() => {setLoggedUser("")}}>Log Out</button>
+                <button className='logout-button' onClick={() => {
+                    window.localStorage.setItem("loggedUser", "")
+                    setLoggedUser("")}}>Log Out</button>
             </article>
         ) : (
             <Link to={`/users`} className="users-link">
