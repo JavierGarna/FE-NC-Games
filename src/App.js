@@ -13,7 +13,8 @@ function App() {
   const [headerLoading, setHeaderLoading] = useState(true);
   useEffect(() => {
     const data = window.localStorage.getItem("loggedUser");
-    if (data !== null) {setLoggedUser(JSON.parse(data))};
+    if (data) {setLoggedUser(JSON.parse(data))}
+    else {setLoggedUser("")};
   }, []);
 
   return (
