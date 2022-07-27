@@ -16,7 +16,7 @@ const Header = () => {
             setCategories(cat);
             setHeaderLoading(false);
         })
-    }, []);
+    });
 
     if (location.pathname === '/') {
         if(pageLoading || headerLoading) {
@@ -44,7 +44,7 @@ const Header = () => {
         {loggedUser ? (
             <article className="loggedUser-info">
                 <Link to={`/users`} className="users-link">
-                    <img className="loggedUser-img" src={loggedUser.avatar_url} alt="user image"/>
+                    <img className="loggedUser-img" src={loggedUser.avatar_url} alt="user"/>
                 </Link>
                 <button className='logout-button' onClick={() => {setLoggedUser("")}}>Log Out</button>
             </article>

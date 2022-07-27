@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
-import { AiFillDislike, AiFillLike, AiOutlineDelete, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
-import { deleteComment, patchVotes } from "../api";
+import { AiFillDislike, AiFillLike, AiOutlineDelete } from "react-icons/ai";
+import { deleteComment } from "../api";
 import userContext from "../contexts/userContext";
 
 const CommentCard = ({ comment_id, comment }) => {

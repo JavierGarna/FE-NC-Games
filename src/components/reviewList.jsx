@@ -25,7 +25,7 @@ const ReviewList = () => {
             }
             setPageLoading(false);
         })
-    }, [category, order]);
+    }, [category, order, currSearch, pageLoading]);
 
     if(pageLoading || headerLoading) return null;
 
