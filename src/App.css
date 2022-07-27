@@ -65,6 +65,49 @@ div {
   font-weight: bold;
 }
 
+.header-user-section {
+  position: absolute;
+  right: 0;
+}
+
+@media only screen and (max-width: 1320px) {
+  .header-user-section {
+    position: relative;
+  }
+}
+
+.signup-button {
+  border: 2px solid rgb(108, 108, 108);
+  border-radius: 4px;
+  color: white;
+  background-color: rgb(149, 10, 10);
+  font-weight: bold;
+  font-size: large;
+  padding: 8px;
+  margin-left: 8px;
+  margin-right: 1rem;
+}
+
+.signup-button:hover {
+  border: 2px solid white;
+  background-color: rgb(203, 23, 23);
+}
+
+.logout-button {
+  border: 2px solid rgb(108, 108, 108);
+  border-radius: 4px;
+  color: white;
+  background-color: rgb(149, 10, 10);
+  font-weight: bold;
+  padding: 4px;
+}
+
+.logout-button:hover {
+  border: 2px solid white;
+  background-color: rgb(203, 23, 23);
+
+}
+
 .homepage {
   margin: 2rem;
   margin-top: 1rem;
@@ -165,32 +208,40 @@ div {
   background-color: #585858;
 }
 
+.single-review-page {
+  text-align: center;
+}
+
 .single-review {
   border: 1px solid rgb(108, 108, 108);
   border-radius: 4px;
   padding-left: 40px;
   margin: 1rem;
+  display: inline-block;
   position: relative;
-  align-self: center;
   width: 500px;
+  text-align: left;
   background-color: #151515;
 }
 
 .single-review-info {
   display: block;
   position: relative;
-  padding-top: 8px;
+  padding-top: 2px;
   text-decoration: none;
   background-color: #2e2e2e;
 }
 
+.single-review-top {
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+
+}
+
 .single-review-owner {
-  position: absolute;
-  top: 0;
-  margin-top: 17px;
-  margin-left: 3rem;
+  margin: 0;
   font-size: 12px;
-  line-height: 16px;
   color: hsl(0, 0%, 71%);
 }
 
@@ -208,7 +259,8 @@ div {
   display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
-  margin: 8px 8px 8px;
+  margin: 0;
+  margin-bottom: 8px;
   position: relative;
   color: white;
 }
@@ -233,7 +285,8 @@ div {
   display: block;
   position: relative;
   text-decoration: none;
-  background-color: #2e2e2e;
+  background-color: #484848;
+  min-height: 75px;
 }
 
 .comment-list {
@@ -255,6 +308,7 @@ div {
   border-bottom: 2px solid rgb(108, 108, 108);
   border-radius: 4px;
   padding-left: 30px;
+  min-height: 75px;
   position: relative;
   background-color: #151515;
 }
@@ -282,6 +336,19 @@ div {
   font-weight: 400;
   line-height: 30px;
   color: hsl(0, 0%, 71%);
+}
+
+.delete-button {
+  position: absolute;
+  margin: 4px;
+  right: 0;
+  top: 0;
+}
+
+.delete-button:hover, .delete-button:focus {
+  border-radius: 4px;
+  background-color: red;
+  
 }
 
 .comment-card-body {
@@ -314,6 +381,35 @@ div {
   padding-bottom: 1px;
   width: 100%;
   word-break: break-all;
+}
+
+.comment-form {
+  position: relative;
+  display: inline-flex;
+}
+
+.comment-area {
+  border: 1px solid rgb(108, 108, 108);
+  border-bottom: 2px solid rgb(108, 108, 108);
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 100px;
+  min-width: 475px;
+  width: 100%;
+  position: relative;
+  margin-left: 10px;
+  margin-bottom: 16px;
+  padding:8px;
+  background-color: #484848;
+  color: white;
+}
+
+.comment-submit-button {
+  position: absolute;
+  right: 0;
+  bottom: 15%;
+  margin: 6px;
+  font-size: large;
 }
 
 .error {

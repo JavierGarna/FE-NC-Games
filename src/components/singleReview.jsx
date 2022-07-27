@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getComments, getReviewById, patchVotes, postComment } from "../api";
 import CommentCard from "./commentCard.jsx";
 import userContext from "../contexts/userContext";
-import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
+import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike, AiOutlineSend } from "react-icons/ai";
 
 const SingleReview = () => {
     const { review_id } = useParams()
@@ -76,6 +76,7 @@ const SingleReview = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         postComment(review_id, commentInput, loggedUser.username)
+        alert("Your comment was posted succesfully")
     };
 
     useEffect(() => {
@@ -88,7 +89,7 @@ const SingleReview = () => {
     }, [review_id]);
 
     return (
-        <main>
+        <main className="single-review-page">
             <article className="single-review">
                 <div className="wrapper-votes-card">
                     {upvoteClicked ? <AiFillLike aria-pressed={upvoteClicked} onClick={handleUpvote} /> 
@@ -98,8 +99,10 @@ const SingleReview = () => {
                         : <AiOutlineDislike aria-pressed={downvoteClicked} onClick={handleDownvote}/>}
                 </div>
                 <section className="single-review-info">
+                    <div className="single-review-top">
                     <p className="single-review-owner">Posted by {review.owner}</p>
                     <h3 className="single-review-title">{review.title}</h3>
+                    </div>
                     <img className="single-review-img" src={review.review_img_url} alt={review.title}/>
                     <p className="single-review-body">{review.review_body}</p>
                 <div className="wrapper-bottom-review">
@@ -112,8 +115,9 @@ const SingleReview = () => {
                             )
                         })}
                         <article>
-                            <form className="comment-form" onSubmit={handleSubmit}>
-                                <label>What are your thoughts?</label><input type="text" name="comment-input" id="comment-input" value={commentInput} onChange={(event) => {setCommentInput(event.target.value)}}></input><button type="submit" id="comment-button">Comment</button>
+                            <form className="comment-form">
+                                <textarea className="comment-area" type="text" name="comment-area" id="comment-area" maxLength='270' placeholder="What are your thoughts?" value={commentInput} onChange={(event) => {setCommentInput(event.target.value)}}></textarea>
+                                <AiOutlineSend className="comment-submit-button" onClick={handleSubmit} id="comment-button"/>
                             </form>
                         </article>
                     </section>

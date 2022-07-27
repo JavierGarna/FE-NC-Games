@@ -40,18 +40,20 @@ const Header = () => {
                 return <Link to={`/${category.slug}`} key={category.slug} className='categories'>{category.slug}</Link>
             })}
         </ul>
+        <section className='header-user-section'>
         {loggedUser ? (
             <article className="loggedUser-info">
                 <Link to={`/users`} className="users-link">
                     <img className="loggedUser-img" src={loggedUser.avatar_url} alt="user image"/>
                 </Link>
-                <button onClick={() => {setLoggedUser("")}}>Log Out</button>
+                <button className='logout-button' onClick={() => {setLoggedUser("")}}>Log Out</button>
             </article>
         ) : (
             <Link to={`/users`} className="users-link">
-                <button>Sign Up</button>
+                <button className='signup-button'>Sign Up</button>
             </Link>
         )}
+        </section>
     </header>
 };
 
